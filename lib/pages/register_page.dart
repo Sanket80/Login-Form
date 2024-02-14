@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,18 +11,38 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _phoneNumberController = TextEditingController();
 
   Future signUp() async {
-    if(_passwordController.text.trim() == _confirmPasswordController.text.trim()){
+    if (_passwordController.text.trim() ==
+        _confirmPasswordController.text.trim()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
+
+      addUserDetails(
+        _firstNameController.text.trim(),
+        _lastNameController.text.trim(),
+        _emailController.text.trim(),
+        int.parse(_phoneNumberController.text.trim()),
+      );
     }
+  }
+
+  Future addUserDetails(
+      String firstName, String lastName, String email, int phoneNumber) async {
+    await FirebaseFirestore.instance.collection('Users').add({
+      'first name': firstName,
+      'last name': lastName,
+      'email': email,
+      'phone number': phoneNumber,
+    });
   }
 
   @override
@@ -29,6 +50,9 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -42,13 +66,6 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.flutter_dash,
-                  size: 120,
-                ),
-                SizedBox(
-                  height: 60,
-                ),
                 // Hello Again!
                 Text(
                   'Hello There!',
@@ -69,6 +86,87 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   height: 50,
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      border: Border.all(
+                        color: Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                      child: TextField(
+                        controller: _firstNameController,
+                        decoration: InputDecoration(
+                          hintText: 'First Name',
+                          suffixIcon: Icon(Icons.person),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      border: Border.all(
+                        color: Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                      child: TextField(
+                        controller: _lastNameController,
+                        decoration: InputDecoration(
+                          hintText: 'Last Name',
+                          suffixIcon: Icon(Icons.person),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      border: Border.all(
+                        color: Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                      child: TextField(
+                        controller: _phoneNumberController,
+                        decoration: InputDecoration(
+                          hintText: 'Phone Number',
+                          suffixIcon: Icon(Icons.phone),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
 
                 // Email
                 Padding(
@@ -82,7 +180,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 5,bottom: 5),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
                       child: TextField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -108,7 +207,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 5,bottom: 5),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
                       child: TextField(
                         controller: _passwordController,
                         obscureText: true,
@@ -123,7 +223,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(
                   height: 10,
-                ),Padding(
+                ),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Container(
                     decoration: BoxDecoration(
@@ -134,7 +235,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 5,bottom: 5),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
                       child: TextField(
                         controller: _confirmPasswordController,
                         obscureText: true,
@@ -163,7 +265,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
-                        child: Text('Sign Up',
+                        child: Text(
+                          'Sign Up',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -181,13 +284,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('I am a member!',style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),),
+                    Text(
+                      'I am a member!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                     TextButton(
                       onPressed: widget.showLoginPage,
-                      child: Text('Login now',
+                      child: Text(
+                        'Login now',
                         style: TextStyle(
                           color: Colors.blue,
                           fontSize: 16,
@@ -197,7 +304,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ],
                 ),
-
               ],
             ),
           ),
