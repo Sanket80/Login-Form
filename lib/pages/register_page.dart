@@ -159,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Colors.deepPurple,
+                        color: Colors.black87,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
@@ -175,7 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 25,
+                  height: 18,
                 ),
 
                 Row(

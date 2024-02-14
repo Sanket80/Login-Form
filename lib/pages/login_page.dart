@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:login/pages/forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -117,8 +118,32 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+
                 SizedBox(
-                  height: 24,
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage(),),);
+                        },
+                        child: Text('Forgot Password?',
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
 
                 // Sign In
@@ -129,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Colors.deepPurple,
+                        color: Colors.black87,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
@@ -145,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 25,
+                  height: 18,
                 ),
 
                 Row(
