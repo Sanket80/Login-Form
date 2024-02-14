@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final VoidCallback showRegisterPage;
+  const LoginPage({super.key, required this.showRegisterPage});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: const EdgeInsets.only(left: 20,top: 5,bottom: 5),
                       child: TextField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -103,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: const EdgeInsets.only(left: 20,top: 5,bottom: 5),
                       child: TextField(
                         controller: _passwordController,
                         obscureText: true,
@@ -117,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 24,
                 ),
 
                 // Sign In
@@ -155,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 16,
                     ),),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: widget.showRegisterPage,
                       child: Text('Register Now',
                         style: TextStyle(
                           color: Colors.blue,
