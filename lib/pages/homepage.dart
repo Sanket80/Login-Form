@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:login/auth/mainpage.dart';
+import 'package:login/pages/login_page.dart';
 import 'package:login/read%20data/get_user_name.dart';
 
 class HomePage extends StatefulWidget {
@@ -70,6 +73,27 @@ class _HomePageState extends State<HomePage> {
                       }
                     })),
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: GNav(
+            backgroundColor: Colors.black,
+            activeColor: Colors.white,
+            color: Colors.white,
+            tabBackgroundColor: Colors.grey.shade900,
+            gap: 8,
+            padding: EdgeInsets.all(16),
+            tabs: [
+            GButton(icon: Icons.home, text: 'Home',onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+            },),
+            GButton(icon: Icons.favorite_border, text: 'Likes'),
+            GButton(icon: Icons.search, text: 'Search'),
+            GButton(icon: Icons.settings,text: 'Settings',),
+          ],),
         ),
       ),
     );
